@@ -1,0 +1,39 @@
+@import url('https://fonts.cdnfonts.com/css/a-space-demo');
+
+body {
+  background-color: #1D2733;
+  color: white;
+}
+
+.logo {
+  font-family: 'A-Space Light Demo', sans-serif;
+  font-size: 22px;
+  text-align: center;
+  padding:5px;
+  color:white;
+}
+
+.logo-text {
+  font-family: 'A-Space Light Demo', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  padding:2px;
+  color:white;
+}
+.shorts-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  background-color:#08c9;
+  color: #fff;
+  border:none; 
+  border-radius:30px; 
+  padding:15px;
+  margin:0 auto;
+  margin-top:35px;
+  width:200px;
+  cursor: pointer;
+}

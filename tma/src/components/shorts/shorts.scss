@@ -1,0 +1,44 @@
+.shorts {
+
+    video {
+        width: 375px;
+        height: 375px;
+        margin:0 auto;
+     }
+
+     .video-content {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+     }
+
+     .button {
+        background-color:#08c9;
+        color: #fff;
+        border:none; 
+        border-radius:60px; 
+        padding:10px;
+        margin-top:20px;
+        width:200px;
+        cursor: pointer;
+      }  
+      
+    .back-button {
+        background-color: #08c9;
+        color: #fff;
+        border: none;
+        border-radius: 60px;
+        padding: 10px;
+        margin-top: 10px;
+        width: 128px;
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        box-sizing: border-box;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+}
