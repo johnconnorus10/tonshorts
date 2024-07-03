@@ -1,0 +1,117 @@
+@import url('https://fonts.cdnfonts.com/css/a-space-demo');
+
+.user-shorts {
+
+    video {
+        width: 100%;
+        height: 100%;
+        background-color: black;
+     }
+
+     .video-content {
+        position: fixed;
+        top:0;
+     }
+
+     .top-buttons {
+
+        position: fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height: 50px;
+        padding:10px;
+        z-index: 1000;
+
+        display: flex;
+        justify-content: space-between;
+
+        div {
+            text-align: center;
+            color:white;
+            cursor: pointer;
+        }
+
+     }
+
+     .left-buttons {
+        position: fixed;
+        bottom: 105px;
+        display: flex;
+        flex-direction: column;
+        right:0;
+        padding:10px;
+
+        div {
+            margin-bottom:20px;
+        }
+     }
+
+     .main-button {
+
+        position: fixed;
+        bottom:40px;
+        width:100%;
+        height: 110px;
+        padding:0;
+
+        .title {
+            width:100%;
+            display: flex;
+            justify-content:center;
+            align-items: center; 
+            font-size: 14px;
+            padding:5px;
+            min-height: 60px;
+            cursor: pointer;
+
+        }
+        .title p {
+            margin: 0; /* Убираем внешний отступ */
+            -webkit-line-clamp: 2; /* Число отображаемых строк */
+            display: -webkit-box; /* Включаем флексбоксы */
+            -webkit-box-orient: vertical; /* Вертикальная ориентация */
+            overflow: hidden; /* Обрезаем всё за пределами блока */
+        }
+
+        .info {
+            display: flex;
+            justify-content:space-between;
+            align-items: center;
+
+            .data {
+               font-size: 12px;
+               text-align: left;
+               padding-left:10px;
+               width:70px;
+            }
+
+            .go {
+                font-size: 25px;
+                text-align: center;
+            }
+
+            .time {
+                font-size: 12px;
+                text-align: right;
+                padding-right:10px;
+                width:70px;
+            }
+        }
+
+        .logo {
+            font-family: 'A-Space Light Demo', sans-serif;
+            font-size: 15px;
+            text-align: center;
+            padding:5px;
+            color:white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+          
+
+     }
+
+}

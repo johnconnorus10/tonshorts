@@ -1,44 +1,129 @@
+@import url('https://fonts.cdnfonts.com/css/a-space-demo');
+
 .shorts {
 
+    background-color: black;
+
+
     video {
-        width: 375px;
-        height: 375px;
-        margin:0 auto;
+        width: 100%;
+        height: 100%;
+        background-color: black;
      }
 
      .video-content {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        align-items: center;
+        position: fixed;
+        top:0;
      }
 
-     .button {
-        background-color:#08c9;
-        color: #fff;
-        border:none; 
-        border-radius:60px; 
+     .top-buttons {
+
+        position: fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height: 50px;
         padding:10px;
-        margin-top:20px;
-        width:200px;
-        cursor: pointer;
-      }  
-      
-    .back-button {
-        background-color: #08c9;
-        color: #fff;
-        border: none;
-        border-radius: 60px;
-        padding: 10px;
-        margin-top: 10px;
-        width: 128px;
-        cursor: pointer;
-        font-size: 20px;
+        padding-top: 0;
+        z-index: 1000;
+
         display: flex;
-        box-sizing: border-box;
-        justify-content: space-around;
-        align-items: center;
-        margin-bottom: 30px;
-    }
+        justify-content: space-between;
+
+        div {
+            text-align: center;
+            color:white;
+            cursor: pointer;
+        }
+
+     }
+
+     .left-buttons {
+        position: fixed;
+        bottom: 65px;
+        display: flex;
+        flex-direction: column;
+        right:0;
+        padding:10px;
+
+        div {
+            margin-bottom:20px;
+        }
+     }
+
+     .main-button {
+
+        position: fixed;
+        bottom:5px;
+        width:100%;
+        height: 95px;
+        padding:0;
+
+        .title {
+            width:100%;
+            display: flex;
+            justify-content:center;
+            align-items: center; 
+            font-size: 14px;
+            padding:5px;
+            min-height: 45px;
+            cursor: pointer;
+
+        }
+        .title p {
+            margin: 0;
+            -webkit-line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            padding-left:10px;
+            padding-right:10px;
+        }
+
+        .info {
+            display: flex;
+            justify-content:space-between;
+            align-items: center;
+
+            .score {
+               text-align: left;
+               padding-left:10px;
+               width:120px;
+
+               cursor: pointer;
+
+               .score-plus {
+                    font-size: 14px;
+                    color: red;
+                    font-weight: bold;
+               }
+
+               .score-points {
+                    font-size: 12px;
+                }
+            }
+
+            .go {
+                font-size: 25px;
+                text-align: center;
+            }
+
+            .time {
+                text-align: right;
+                padding-right:10px;
+                width:120px;
+
+                .time-num {
+                    font-size: 14px;
+                    font-weight: bold;
+               }
+
+               .time-rank {
+                   font-size: 12px;
+                }
+            }
+        }    
+
+     }
 
 }

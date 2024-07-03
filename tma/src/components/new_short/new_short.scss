@@ -1,59 +1,13 @@
 .new-short {
 
-    .form {
-        display: flex;
-        flex-direction: column;
-        justify-content:space-around;
-        align-items: center;
+    padding: 10px;
+
+    button {
+        width: 100%;
     }
 
-
-    .button {
-        background-color:#08c9;
-        color: #fff;
-        border:none; 
-        border-radius:60px; 
-        padding:10px;
-        margin-top:20px;
-        width:300px;
-        cursor: pointer;
-        font-size: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      } 
-
-    label {
-        font-size: 18px;
-        text-align: center;
-    }
-      
-    input {
-        width:300px;
-        padding: 15px;
-        margin: 0 auto;
-        margin-top:20px;
-        margin-bottom:20px;
-        border-radius: 10px;
-        font-size: 18px;
-
-    }
-      
-    .back-button {
-        background-color: #08c9;
-        color: #fff;
-        border: none;
-        border-radius: 60px;
-        padding: 10px;
-        margin: 0 auto;
-        margin-top: 10px;
-        width: 128px;
-        cursor: pointer;
-        font-size: 20px;
-        display: flex;
-        box-sizing: border-box;
-        justify-content: space-around;
-        align-items: center;
-        margin-bottom: 30px;
+    .tonconnect {
+        padding-bottom: 15px;
+        margin-right: 0;
     }
 }

@@ -1,0 +1,21 @@
+.publish {
+
+    padding: 10px;
+
+    .top-buttons {
+
+        display: flex;
+        justify-content: space-between;
+
+        div {
+            text-align: center;
+            color:white;
+            cursor: pointer;
+        }
+
+     }
+
+    button {
+        width: 100%;
+    }
+}

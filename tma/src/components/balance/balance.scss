@@ -1,0 +1,33 @@
+.balance{
+
+    padding: 10px;
+
+    h2{
+        text-align: center;
+    }
+
+    .points {
+
+        font-size: 22px;
+        font-weight: bold;
+
+
+        &__info {
+            margin-top:10px;
+            font-size:14px;
+        }
+    }
+    
+
+    hr {
+        border: none; /* Убираем границу */
+        background-color: silver; /* Цвет линии */
+        color: silver; /* Цвет линии для IE6-7 */
+        height: 2px; /* Толщина линии */
+       }
+
+
+    .time-rank {
+        font-size:16px;
+    }
+}

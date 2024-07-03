@@ -10,10 +10,10 @@ export const TonConnect = () => {
 
 		{wallet ? (
 				<span>
-					Кошелёк подключён
+					Wallet connected
 				</span>
 			) : (
-				<span>Подключите кошелёк, чтобы просматривать и загружать короткие видео.</span>
+				<span>Connect your wallet to view and download short videos.</span>
 			)}
         
 

@@ -38,7 +38,7 @@ func sendMessage(chatID int64, text string) {
 		msg := tgbotapi.NewMessage(chatID, text)
 		_, err := bot.Send(msg)
 		if err != nil {
-			fmt.Printf("Ошибка отправки сообщения: %v\n", err)
+			fmt.Printf("Error sending message: %v\n", err)
 		}
 	}()
 }
@@ -50,24 +50,24 @@ func downloadFile(fileID, filePath string) error {
 
 	file, err := bot.GetFile(fileConfig)
 	if err != nil {
-		return fmt.Errorf("Ошибка получения файла: %v", err)
+		return fmt.Errorf("Error receiving file: %v", err)
 	}
 
 	resp, err := http.Get(file.Link(bot.Token))
 	if err != nil {
-		return fmt.Errorf("Ошибка загрузки видео: %v", err)
+		return fmt.Errorf("Error loading video: %v", err)
 	}
 	defer resp.Body.Close()
 
 	output, err := os.Create(filePath)
 	if err != nil {
-		return fmt.Errorf("Ошибка создания видео файла: %v", err)
+		return fmt.Errorf("Error creating video file: %v", err)
 	}
 	defer output.Close()
 
 	_, err = io.Copy(output, resp.Body)
 	if err != nil {
-		return fmt.Errorf("Ошибка сохранения файла: %v", err)
+		return fmt.Errorf("Error saving file: %v", err)
 	}
 
 	return nil
@@ -77,12 +77,12 @@ func convertVideo(inputFile string) (string, error) {
 	// проверка установлено ли дополнение ffmpeg
 	_, err := exec.LookPath("ffmpeg")
 	if err != nil {
-		return "", fmt.Errorf("ffmpeg не установлен")
+		return "", fmt.Errorf("ffmpeg is not installed")
 	}
 
 	// Check if the input file exists
 	if _, err := os.Stat(inputFile); os.IsNotExist(err) {
-		return "", fmt.Errorf("исходное видео не найдено")
+		return "", fmt.Errorf("original video not found")
 	}
 
 	// Получить расширение и имя загруженного файла
@@ -96,7 +96,7 @@ func convertVideo(inputFile string) (string, error) {
 	// получаем размер файла
 	dimensions, err := getVideoDimensions(inputFile)
 	if err != nil {
-		return "", fmt.Errorf("Ошибка получения размера видео: %v", err)
+		return "", fmt.Errorf("Error getting video size: %v", err)
 	}
 
 	// Calculate the new dimensions based on the longer side being 512 pixels
@@ -110,7 +110,7 @@ func convertVideo(inputFile string) (string, error) {
 		"-c:v", "libvpx-vp9", // VP9 video codec
 		//"-an",      // No audio stream
 		"-r", "30", // Set frame rate to 30 FPS
-		"-t", "60", // Limit duration to 60 seconds
+		"-t", "600", // Limit duration to 600 seconds
 		"-loop", "0", // Loop the video
 		"-s", fmt.Sprintf("%dx%d", newWidth, newHeight), // Output size with new dimensions
 		"-crf", "48", // Control output video quality (lower value means higher quality)
@@ -120,7 +120,7 @@ func convertVideo(inputFile string) (string, error) {
 
 	err = cmd.Run()
 	if err != nil {
-		return "", fmt.Errorf("Ошибка конверации видео: %v", err)
+		return "", fmt.Errorf("Video conversion error: %v", err)
 	}
 
 	return outputFile, nil
@@ -138,7 +138,7 @@ func getVideoDimensions(inputFile string) (dimensions string, err error) {
 
 	output, err := cmd.Output()
 	if err != nil {
-		return "", fmt.Errorf("Ошибка получения размера видео: %v", err)
+		return "", fmt.Errorf("Error getting video size: %v", err)
 	}
 
 	dimensions = string(output)
@@ -168,11 +168,19 @@ func calculateDimensions(dimensions string) (newWidth, newHeight int) {
 	return newWidth, newHeight
 }
 
+func copyToString(r io.Reader) (res string, err error) {
+    var sb strings.Builder
+    if _, err = io.Copy(&sb, r); err == nil {
+        res = sb.String()
+    }
+    return
+}
+
 func main() {
 	// получение текущей директории на сервере
 	exePath, err := os.Executable()
 	if err != nil {
-		fmt.Print("Не могу получить корневую папку:", err)
+		fmt.Print("I can't get the root folder:", err)
 		os.Exit(1)
 	}
 
@@ -180,10 +188,11 @@ func main() {
 
 	token = os.Getenv("BOT_TOKEN") //токен из файла .env
 
+
 	// инициализация Телеграм бота
 	bot, err = tgbotapi.NewBotAPI(token)
 	if err != nil {
-		fmt.Printf("Ошибка инициализации Телеграм бота: %v\n", err)
+		fmt.Printf("Telegram bot initialization error: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -194,7 +203,7 @@ func main() {
 
 	updates, err := bot.GetUpdatesChan(u)
 	if err != nil {
-		fmt.Printf("Ошибка подключения к каналу: %v\n", err)
+		fmt.Printf("Channel connection error: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -205,11 +214,11 @@ func main() {
 
 		// обработка команды "/start"
 		if update.Message.IsCommand() && update.Message.Command() == "start" {
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "TON Shorts bot. Отправьте короткое видео до 50 бм, далее скопируйте ссылку в web3 приложение. \n")
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "TON Shorts bot. Send a short video up to 20 megabytes, then copy the link into the web3-application. \n")
 			// отправка приветственно сообщения с кнопкой
 			msg.ReplyMarkup = tgbotapi.NewInlineKeyboardMarkup(
 				tgbotapi.NewInlineKeyboardRow(
-					tgbotapi.NewInlineKeyboardButtonURL("Узнайте о выходе проекта в MAINNET TON на сайте tonshorts.ru", "https://tonshorts.ru"),
+					tgbotapi.NewInlineKeyboardButtonURL("Project website: TonShorts.ru", "https://tonshorts.ru"),
 				),
 			)
 			bot.Send(msg)
@@ -236,40 +245,49 @@ func main() {
 			// проверка поддерживается ли формат видео для работы с ffmpeg
 			var compatible = isCompatible(filePath)
 			if !compatible {
-				sendMessage(update.Message.Chat.ID, "Формат файла не поддерживается!")
+				sendMessage(update.Message.Chat.ID, "File format not supported!")
 				continue
 			}
 
-			sendMessage(update.Message.Chat.ID, "Конвертирую видео ...")
+			sendMessage(update.Message.Chat.ID, "I convert videos (from 1 to 10 minutes)...")
 
 			// скачивание присланного боту видео
 			joinedFilePath := filepath.Join(dir, filePath)
 			err := downloadFile(fileID, joinedFilePath)
 			if err != nil {
-				sendMessage(update.Message.Chat.ID, "Не могу загрузить ваше видео.")
-				fmt.Printf("Не могу загрузить ваше видео: %v\n", err)
+				sendMessage(update.Message.Chat.ID, "I can't load your video.")
+				fmt.Printf("I can't load your video: %v\n", err)
 				continue
 			}
 
 			// конвертация видео
 			convertedFilePath, err := convertVideo(joinedFilePath)
 			if err != nil {
-				sendMessage(update.Message.Chat.ID, "Ошибка конверации видео.")
-				fmt.Printf("Ошибка конверации видео: %v\n", err)
+				sendMessage(update.Message.Chat.ID, "Video conversion error.")
+				fmt.Printf("Video conversion error: %v\n", err)
 				os.Remove(joinedFilePath)
 				os.Remove(convertedFilePath)
 				continue
 			}
-			sendMessage(update.Message.Chat.ID, "Видео сконвертировано. Отправляю вам...")
+			sendMessage(update.Message.Chat.ID, "The video has been converted. Send you...")
 			// отправка сконвертированного видео в чат
 			video := tgbotapi.NewVideoUpload(update.Message.Chat.ID, convertedFilePath)
 			bot.Send(video)
+
+			sendMessage(update.Message.Chat.ID, "tonshorts://"+convertedFilePath)
+
+
+			newPathVideo := "/usr/share/nginx/html/files/" + convertedFilePath
+			os.Link(convertedFilePath, newPathVideo)
+
+
 			os.Remove(joinedFilePath)
 			os.Remove(convertedFilePath)
 
 		} else if update.Message.Text == "" {
-			sendMessage(update.Message.Chat.ID, "Не обнаружил видео в вашем сообщении. \nПопробуйте прислать что-нибудь другое ...")
-			fmt.Printf("Не обнаружил видео в вашем сообщении. debug update.Message: %+v\n", update.Message)
+			sendMessage(update.Message.Chat.ID, "I didn't find the video in your message.\nTry sending something else...")
+			fmt.Printf("I didn't find the video in your message. Message: %+v\n", update.Message)
+			continue
 		}
 	}//for
 }

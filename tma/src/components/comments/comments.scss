@@ -1,0 +1,44 @@
+.comments {
+
+    padding: 10px;
+
+    h2 {
+        text-align: center;
+    }
+
+    .comments-list {
+        margin-top:20px;
+
+        .comments-item {
+            padding: 10px;
+            border-bottom: 1px solid silver;
+            font-size:14px;
+
+            .name {
+                font-size: 12px;
+                font-weight: bold;  
+            }
+
+            .dt {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .top-buttons {
+
+        display: flex;
+        justify-content: space-between;
+
+        div {
+            text-align: center;
+            color:white;
+            cursor: pointer;
+        }
+
+     }
+
+    button {
+        width: 100%;
+    }
+}
